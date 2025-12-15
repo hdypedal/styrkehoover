@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hover-kort</title>
+  <style>
+    /* Demo-layout */
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 0; padding: 32px; background: #f6f6f6; }
+    .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); max-width: 960px; margin: 0 auto; }
+
+    /* Selve kortet */
+    .card {
+      position: relative;
+      height: 160px;
+      border-radius: 16px;
+      background: white;
+      box-shadow: 0 10px 25px rgba(0,0,0,.08);
+      overflow: hidden;
+      cursor: pointer;
+      isolation: isolate;
+    }
+
+    .face {
+      position: absolute;
+      inset: 0;
+      padding: 16px;
+      display: grid;
+      align-content: center;
+      gap: 6px;
+      transition: transform .28s ease, opacity .28s ease;
+    }
+
+    .front h3 { margin: 0; font-size: 18px; }
+    .front p { margin: 0; opacity: .75; }
+
+    .back {
+      opacity: 0;
+      transform: translateY(18px);
+      background: linear-gradient(135deg, rgba(0,0,0,.78), rgba(0,0,0,.58));
+      color: white;
+    }
+
+    .back h3 { margin: 0; font-size: 18px; }
+    .back p { margin: 0; opacity: .9; }
+
+    /* Hover-effekten: "front" fades ut, "back" fades inn */
+    .card:hover .front { opacity: 0; transform: translateY(-18px); }
+    .card:hover .back  { opacity: 1; transform: translateY(0); }
+
+    /* Tastatur-tilgjengelighet: når kortet får fokus */
+    .card:focus-visible { outline: 3px solid #3b82f6; outline-offset: 3px; }
+    .card:focus-visible .front { opacity: 0; transform: translateY(-18px); }
+    .card:focus-visible .back  { opacity: 1; transform: translateY(0); }
+
+    /* Litt fin touch: reduserer bevegelse om bruker ønsker det */
+    @media (prefers-reduced-motion: reduce) {
+      .face { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <h1 style="max-width:960px;margin:0 auto 16px;">Hover-kort (som bytter innhold)</h1>
+  <div class="grid">
+    <div class="card" tabindex="0" aria-label="Kort: Nysgjerrighet">
+      <div class="face front">
+        <h3>Nysgjerrighet</h3>
+        <p>Kort beskrivelse</p>
+      </div>
+      <div class="face back">
+        <h3>Mer info</h3>
+        <p>Her kan du skrive en lengre forklaring som vises ved hover/fokus.</p>
+      </div>
+    </div>
+
+    <div class="card" tabindex="0" aria-label="Kort: Mot">
+      <div class="face front">
+        <h3>Mot</h3>
+        <p>Kort beskrivelse</p>
+      </div>
+      <div class="face back">
+        <h3>Mer info</h3>
+        <p>Du kan også ha lenker, ikoner, osv. inni baksiden.</p>
+      </div>
+    </div>
+
+    <div class="card" tabindex="0" aria-label="Kort: Takknemlighet">
+      <div class="face front">
+        <h3>Takknemlighet</h3>
+        <p>Kort beskrivelse</p>
+      </div>
+      <div class="face back">
+        <h3>Mer info</h3>
+        <p>Dette er bare HTML + CSS (ingen JavaScript nødvendig).</p>
+      </div>
+    </div>
+  </div>
+
+  <p style="max-width:960px;margin:16px auto 0;opacity:.75;">
+    Tips: På mobil finnes ikke "hover". Her kan du bruke fokus (tab) på desktop, eller lage klikk/tap med litt JavaScript.
+  </p>
+</body>
+</html>
